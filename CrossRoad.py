@@ -29,13 +29,35 @@ class Game:
 
     def run_game_loop(self):
         is_game_over = False
+        direction = 0
+
+        player_character = PlayerCharacter("player.png", 375, 700, 50, 50)
 
         while not is_game_over:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     is_game_over = True
+                # When user presses down a key
+                elif event.type == pygame.KEYDOWN:
+                    # if the key is up arrow
+                    if event.key == pygame.K_UP:
+                        direction = 1
+                    # if the key is down arrow
+                    elif event.key == pygame.K_DOWN:
+                        direction = -1
+                # if the user releases the key
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                        direction = 0
                 print(event)
+
+            self.game_screen.fill(WHITE_COLOR)
+
+            # Update player position
+            player_character.move(direction)
+            # Draw player
+            player_character.draw(self.game_screen)
 
             # game_screen.blit(player_image, (375, 375))
 
@@ -53,10 +75,26 @@ class GameObject:
         self.image = pygame.transform.scale(object_image, (50, 50))
         self.x_pos = x
         self.y_pos = y
+        self.width = width
+        self.height = height
 
     def draw(self, background):
         background.blit(self.image, (self.x_pos, self.y_pos))
-        
+
+
+class PlayerCharacter(GameObject):
+
+    SPEED = 10
+
+    def __init__(self, image_path, x, y, width, height):
+        super().__init__(image_path, x, y, width, height)
+
+    # move character up and down
+    def move(self, direction):
+        if direction > 0:
+            self.y_pos -= self.SPEED
+        elif direction < 0:
+            self.y_pos += self.SPEED
 
 
 # Init pygame
