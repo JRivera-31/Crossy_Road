@@ -46,6 +46,19 @@ class Game:
             pygame.display.update()
             clock.tick(self.TICK_RATE)
 
+class GameObject:
+
+    def __init__(self, image_path, x, y, width, height):
+        object_image = pygame.image.load(image_path)
+        self.image = pygame.transform.scale(object_image, (50, 50))
+        self.x_pos = x
+        self.y_pos = y
+
+    def draw(self, background):
+        background.blit(self.image, (self.x_pos, self.y_pos))
+        
+
+
 # Init pygame
 pygame.init()
 
@@ -54,6 +67,3 @@ new_game.run_game_loop()
 
 pygame.quit()
 quit()
-
-# player_image = pygame.image.load("player.png")
-# player_image = pygame.transform.scale(player_image, (50, 50))
