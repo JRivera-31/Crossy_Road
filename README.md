@@ -1,5 +1,8 @@
 # python_pygame
 This is a very simple cross road game made with python and pygame.
+More enemies appear after a certain amount of levels.
+Plan to add level counters more comples difficulty.
+Maybe a server with leaderboards?
 
 ## Table of Contents
 
@@ -31,4 +34,4 @@ Build a simple game to understand simple game logic and object-oriented programm
 
 
 ## Image
-<img src="public/images/Capture.PNG" />
+<img src="CrossyRoad.gif" />
