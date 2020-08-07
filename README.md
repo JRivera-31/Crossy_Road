@@ -1,4 +1,4 @@
-# python_pygame
+# Crossy Road
 This is a very simple cross road game made with python and pygame.
 More enemies appear after a certain amount of levels.
 Plan to add level counters more comples difficulty.
