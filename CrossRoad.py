@@ -32,14 +32,17 @@ class Game:
         self.game_screen.fill(WHITE_COLOR)
         pygame.display.set_caption(title)
 
-    def run_game_loop(self):
+    def run_game_loop(self, level_speed):
         is_game_over = False
         direction = 0
         did_win = False
 
         treasure = GameObject("treasure.png", 375, 50, 50, 50)
         player_character = PlayerCharacter("player.png", 375, 700, 50, 50)
-        enemy_0 = EnemyCharacter("enemy.png", 20, 400, 50,50)
+        enemy_0 = EnemyCharacter("enemy.png", 20, 400, 50, 50)
+        enemy_1 = EnemyCharacter("enemy.png", self.width - 40, 600, 50, 50)
+        enemy_2 = EnemyCharacter("enemy.png", 20, 200, 50, 50)
+        enemy_0.SPEED *= level_speed
 
         while not is_game_over:
 
@@ -72,6 +75,13 @@ class Game:
             # Draw player
             player_character.draw(self.game_screen)
             enemy_0.draw(self.game_screen)
+
+            if level_speed > 2:
+                enemy_1.move(self.width)
+                enemy_1.draw(self.game_screen)
+            if level_speed > 4:
+                enemy_2.move(self.width)
+                enemy_2.draw(self.game_screen)       
             
             if player_character.detect_collision(enemy_0):
                 is_game_over = True
@@ -95,9 +105,9 @@ class Game:
             clock.tick(self.TICK_RATE)
         
         if did_win:
-            return
+            self.run_game_loop(level_speed + 0.5)
         else:
-            self.run_game_loop()
+            return
 
 class GameObject:
 
@@ -163,7 +173,7 @@ class EnemyCharacter(GameObject):
 pygame.init()
 
 new_game = Game("background.png", SCREEN_TITLE, SCREEN_WIDTH, SCREEN_HEIGHT)
-new_game.run_game_loop()
+new_game.run_game_loop(1)
 
 pygame.quit()
 quit()
